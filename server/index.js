@@ -29,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Serve static assets
 app.use(express.static(path.join(rootDir, 'public')));
+app.use('/public', express.static(path.join(rootDir, 'public')));
 app.use('/widget', express.static(path.join(rootDir, 'widget')));
 
 // Direct route for widget.js at root /widget.js
@@ -36,8 +37,12 @@ app.get('/widget.js', (req, res) => {
   res.sendFile(path.join(rootDir, 'widget', 'widget.js'));
 });
 
-// Direct route for demo page at root / and /demo
-app.get(['/', '/demo', '/demo.html'], (req, res) => {
+// Direct route for homepage and legacy demo page paths
+app.get('/', (req, res) => {
+  res.sendFile(path.join(rootDir, 'index.html'));
+});
+
+app.get(['/demo', '/demo.html'], (req, res) => {
   res.sendFile(path.join(rootDir, 'widget', 'demo.html'));
 });
 

@@ -1,0 +1,29 @@
+{
+  "name": "helix-support",
+  "version": "1.0.0",
+  "description": "Website customer-support chatbot with AI agent backend, Supabase ticketing, Discord escalation, and embeddable widget.",
+  "main": "server/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "test": "node test/api-test.js"
+  },
+  "keywords": [
+    "chatbot",
+    "customer-support",
+    "gemini-ai",
+    "supabase",
+    "discord-webhook",
+    "chat-widget"
+  ],
+  "author": "Helix Support",
+  "license": "MIT",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@supabase/supabase-js": "^2.49.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}

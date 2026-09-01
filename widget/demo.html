@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helix Support — Autonomous AI Support & Human Escalation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4F46E5;
+      --primary-hover: #4338CA;
+      --primary-light: #EEF2FF;
+      --teal: #14B8A6;
+      --teal-light: #CCFBF1;
+      --teal-dark: #0F766E;
+      --amber: #F59E0B;
+      --amber-light: #FEF3C7;
+      --amber-dark: #B45309;
+      --bg: #F9FAFB;
+      --dark-bg: #111827;
+      --card-bg: #FFFFFF;
+      --text: #1F2937;
+      --text-muted: #6B7280;
+      --border: #E5E7EB;
+      --radius-lg: 14px;
+      --radius-sm: 8px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Top Announcement Bar */
+    .announcement-bar {
+      background: linear-gradient(90deg, #4F46E5 0%, #6366F1 50%, #14B8A6 100%);
+      color: #FFFFFF;
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .announcement-bar span.badge {
+      background: rgba(255, 255, 255, 0.25);
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Navigation */
+    nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      color: white;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    }
+
+    .nav-brand-text {
+      font-weight: 700;
+      font-size: 18px;
+      color: #111827;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 18px;
+      font-size: 13.5px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+    }
+
+    .btn-outline {
+      background: #FFFFFF;
+      color: #374151;
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background: #F9FAFB;
+      border-color: #D1D5DB;
+    }
+
+    .btn-admin {
+      background: #EEF2FF;
+      color: var(--primary);
+      border: 1px solid #C7D2FE;
+    }
+
+    .btn-admin:hover {
+      background: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .btn-lg {
+      padding: 13px 26px;
+      font-size: 15px;
+      border-radius: 10px;
+    }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 72px 24px 60px;
+      text-align: center;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      border: 1px solid #E0E7FF;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .status-dot-live {
+      width: 8px;
+      height: 8px;
+      background-color: #10B981;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+      animation: live-blink 2s infinite;
+    }
+
+    @keyframes live-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: #111827;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero h1 span.gradient {
+      background: linear-gradient(135deg, #4F46E5 0%, #14B8A6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p.subtitle {
+      font-size: 19px;
+      color: var(--text-muted);
+      max-width: 740px;
+      margin: 0 auto 36px;
+      line-height: 1.55;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    /* Live Preview Banner Mockup */
+    .hero-mockup {
+      max-width: 1040px;
+      margin: 0 auto 60px;
+      background: #FFFFFF;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      text-align: left;
+    }
+
+    .mockup-left {
+      padding: 36px;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .mockup-header-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    .mockup-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .mockup-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .mockup-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #F9FAFB;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .step-num {
+      width: 24px;
+      height: 24px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-text strong {
+      display: block;
+      font-size: 13.5px;
+      color: #111827;
+    }
+
+    .step-text span {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .mockup-right {
+      background: #F8FAFC;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .chat-preview-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+    }
+
+    .chat-bubble-sample {
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .chat-bubble-sample.user {
+      background: var(--primary);
+      color: white;
+      margin-left: auto;
+      max-width: 80%;
+      border-bottom-right-radius: 2px;
+    }
+
+    .chat-bubble-sample.bot {
+      background: #E5E7EB;
+      color: #111827;
+      margin-right: auto;
+      max-width: 85%;
+      border-bottom-left-radius: 2px;
+    }
+
+    .escalation-pill {
+      background: var(--amber-light);
+      border: 1px solid #FCD34D;
+      color: var(--amber-dark);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Section Styling */
+    section {
+      padding: 72px 24px;
+    }
+
+    .section-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 48px;
+    }
+
+    .section-tag {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--primary);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .section-header h2 {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #111827;
+      margin-bottom: 14px;
+    }
+
+    .section-header p {
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    /* Interactive Test Suite Grid */
+    .testing-panel-section {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .test-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .test-btn-card {
+      background: #F9FAFB;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+    }
+
+    .test-btn-card:hover {
+      border-color: var(--primary);
+      background: #FFFFFF;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(79, 70, 229, 0.12);
+    }
+
+    .test-btn-card .tag {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .test-btn-card .tag.faq { background: var(--teal-light); color: var(--teal-dark); }
+    .test-btn-card .tag.escalate { background: var(--amber-light); color: var(--amber-dark); }
+    .test-btn-card .tag.control { background: var(--primary-light); color: var(--primary); }
+
+    .test-btn-card strong {
+      font-size: 15px;
+      color: #111827;
+    }
+
+    .test-btn-card span.sample-text {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .test-btn-card .action-hint {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .feature-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      font-size: 22px;
+    }
+
+    .feature-icon-box.indigo { background: #EEF2FF; color: var(--primary); }
+    .feature-icon-box.teal { background: var(--teal-light); color: var(--teal-dark); }
+    .feature-icon-box.amber { background: var(--amber-light); color: var(--amber-dark); }
+    .feature-icon-box.purple { background: #F3E8FF; color: #7E22CE; }
+
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Knowledge Base Accordion Section */
+    .faq-accordion-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 800px) {
+      .faq-accordion-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .faq-item {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .faq-item-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .faq-item-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .btn-ask-faq {
+      background: #EEF2FF;
+      color: var(--primary);
+      border: 1px solid #C7D2FE;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .btn-ask-faq:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .faq-item-answer {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Embed Snippet Section */
+    .embed-section {
+      background: var(--dark-bg);
+      color: #FFFFFF;
+      border-radius: 20px;
+      padding: 48px;
+      margin: 40px auto 0;
+    }
+
+    .embed-section h2 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .embed-section p {
+      color: #9CA3AF;
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+
+    .code-box {
+      background: #1F2937;
+      border: 1px solid #374151;
+      border-radius: 10px;
+      padding: 16px 20px;
+      position: relative;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      color: #34D399;
+      overflow-x: auto;
+      margin-bottom: 24px;
+    }
+
+    .code-box button.btn-copy {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFFFFF;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .code-box button.btn-copy:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Pricing Section */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .pricing-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      border: 2px solid var(--primary);
+      box-shadow: 0 12px 30px rgba(79, 70, 229, 0.15);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 9999px;
+    }
+
+    .pricing-tier {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    .pricing-price {
+      font-size: 40px;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+
+    .pricing-price span {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .pricing-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+      flex: 1;
+    }
+
+    .pricing-features li {
+      font-size: 13.5px;
+      color: #374151;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pricing-features li svg {
+      color: var(--teal);
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border);
+      padding: 48px 24px 32px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero h1 { font-size: 36px; }
+      .hero-mockup { grid-template-columns: 1fr; }
+      .mockup-left { border-right: none; border-bottom: 1px solid var(--border); }
+      .embed-section { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    <span class="badge">Live & Running</span>
+    <span>⚡ Helix Support backend is operational on Port 3000 • 100% Free-Tier Stack</span>
+  </div>
+
+  <!-- Main Navigation -->
+  <nav>
+    <a href="#" class="nav-brand">
+      <div class="nav-logo">H</div>
+      <span class="nav-brand-text">Helix Support</span>
+    </a>
+    <div class="nav-links">
+      <a href="#test-suite" class="nav-link">Interactive Tests</a>
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#kb" class="nav-link">Knowledge Base (12 FAQs)</a>
+      <a href="#embed" class="nav-link">Embed Script</a>
+      <a href="#pricing" class="nav-link">Pricing</a>
+    </div>
+    <div class="nav-actions">
+      <a href="/admin.html" class="btn btn-admin">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        Admin Portal
+      </a>
+      <button class="btn btn-primary" onclick="openWidgetChat()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        Open Chat Widget
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-pill">
+      <span class="status-dot-live"></span>
+      Google Gemini AI + Supabase DB + Discord Escalation
+    </div>
+    <h1>Autonomous Customer Support<br><span class="gradient">With Intelligent Human Escalation</span></h1>
+    <p class="subtitle">
+      Helix resolves FAQs in milliseconds from your knowledge base and automatically creates Supabase tickets and Discord alerts when customers need human assistance.
+    </p>
+    
+    <div class="hero-ctas">
+      <button class="btn btn-primary btn-lg" onclick="openWidgetChat()">
+        💬 Launch Live Widget
+      </button>
+      <a href="/admin.html" class="btn btn-outline btn-lg">
+        🛡️ Access Admin Dashboard
+      </a>
+      <a href="#test-suite" class="btn btn-outline btn-lg">
+        🧪 Run Test Suite
+      </a>
+    </div>
+
+    <!-- Live Preview Banner Mockup -->
+    <div class="hero-mockup">
+      <div class="mockup-left">
+        <div>
+          <div class="mockup-header-title">How Helix Protects Your Team</div>
+          <p class="mockup-desc">Autonomous multi-tier triage that balances self-service with rapid human escalation.</p>
+          <div class="mockup-steps">
+            <div class="mockup-step">
+              <div class="step-num">1</div>
+              <div class="step-text">
+                <strong>Instant FAQ Matching (Gemini 1.5 Flash)</strong>
+                <span>Answers questions warm, concise, and strictly from verified policies.</span>
+              </div>
+            </div>
+            <div class="mockup-step">
+              <div class="step-num">2</div>
+              <div class="step-text">
+                <strong>Autonomous Escalation Engine</strong>
+                <span>Detects refund/cancellation keywords, repetition loops, or frustration.</span>
+              </div>
+            </div>
+            <div class="mockup-step">
+              <div class="step-num">3</div>
+              <div class="step-text">
+                <strong>Supabase Ticketing + Discord Webhook</strong>
+                <span>Logs full transcript and notifies your team in real time.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mockup-right">
+        <div class="chat-preview-card">
+          <div class="chat-bubble-sample user">I need a refund, my item arrived broken!</div>
+          <div class="escalation-pill">
+            <span>⚠️ Ticket #HLX-8492 created & sent to Discord</span>
+          </div>
+          <div class="chat-bubble-sample bot" style="margin-top: 8px;">
+            I've created ticket #HLX-8492 and looped in our team — they'll follow up shortly.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Test Playground Section -->
+  <section class="testing-panel-section" id="test-suite">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Interactive Playground</span>
+        <h2>Click Any Test Case to Trigger the Widget</h2>
+        <p>Test real FAQ responses, keyword triggers, and escalation scenarios directly with 1 click.</p>
+      </div>
+
+      <div class="test-actions-grid">
+        
+        <!-- FAQ 1 -->
+        <div class="test-btn-card" onclick="simulateQuestion('What are your business hours?')">
+          <span class="tag faq">FAQ Match</span>
+          <strong>Business Hours</strong>
+          <span class="sample-text">"What are your business hours?"</span>
+          <div class="action-hint">Test FAQ Reply →</div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="test-btn-card" onclick="simulateQuestion('How long does shipping take?')">
+          <span class="tag faq">FAQ Match</span>
+          <strong>Shipping Time</strong>
+          <span class="sample-text">"How long does shipping take?"</span>
+          <div class="action-hint">Test FAQ Reply →</div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="test-btn-card" onclick="simulateQuestion('Do you offer a free trial?')">
+          <span class="tag faq">FAQ Match</span>
+          <strong>Free Trial Offer</strong>
+          <span class="sample-text">"Do you offer a free trial?"</span>
+          <div class="action-hint">Test FAQ Reply →</div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="test-btn-card" onclick="simulateQuestion('What payment methods do you accept?')">
+          <span class="tag faq">FAQ Match</span>
+          <strong>Payment Methods</strong>
+          <span class="sample-text">"What payment methods do you accept?"</span>
+          <div class="action-hint">Test FAQ Reply →</div>
+        </div>
+
+        <!-- Escalation 1 -->
+        <div class="test-btn-card" onclick="simulateQuestion('I want a refund on my broken product immediately.')">
+          <span class="tag escalate">Escalation Trigger</span>
+          <strong>Refund & Broken Item</strong>
+          <span class="sample-text">"I want a refund on my broken product..."</span>
+          <div class="action-hint">Trigger Ticket Banner 🚨 →</div>
+        </div>
+
+        <!-- Escalation 2 -->
+        <div class="test-btn-card" onclick="simulateQuestion('Can I speak to a human manager right now?')">
+          <span class="tag escalate">Escalation Trigger</span>
+          <strong>Human Agent Request</strong>
+          <span class="sample-text">"Can I speak to a human manager..."</span>
+          <div class="action-hint">Trigger Ticket Banner 🚨 →</div>
+        </div>
+
+        <!-- Escalation 3 -->
+        <div class="test-btn-card" onclick="simulateRepetition()">
+          <span class="tag escalate">Escalation Trigger</span>
+          <strong>Repetition Loop (2x)</strong>
+          <span class="sample-text">Sends same question twice in a row</span>
+          <div class="action-hint">Test Repetition Escalation 🚨 →</div>
+        </div>
+
+        <!-- Escalation 4 -->
+        <div class="test-btn-card" onclick="simulateQuestion('This is ridiculous and terrible service, useless!!!')">
+          <span class="tag escalate">Escalation Trigger</span>
+          <strong>Frustration & Sentiment</strong>
+          <span class="sample-text">"This is ridiculous and terrible service..."</span>
+          <div class="action-hint">Test Sentiment Escalation 🚨 →</div>
+        </div>
+
+        <!-- Control Reset -->
+        <div class="test-btn-card" onclick="resetChat()">
+          <span class="tag control">Session Reset</span>
+          <strong>Clear Chat & Tickets</strong>
+          <span class="sample-text">Clears sessionStorage & resets conversation</span>
+          <div class="action-hint">Reset Widget State 🔄 →</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Grid Section -->
+  <section id="features">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Core Capabilities</span>
+        <h2>Engineered for High-Volume Support</h2>
+        <p>Built with reliable free-tier services to give you enterprise customer support at zero infrastructure cost.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-box indigo">🤖</div>
+          <h3>Google Gemini AI Powered</h3>
+          <p>Uses Gemini 1.5 Flash with custom system instructions to answer accurately, warm, and concisely strictly from your knowledge base.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box amber">⚡</div>
+          <h3>Smart Escalation Engine</h3>
+          <p>Monitors trigger keywords (refund, cancel, legal, broken, human), repeated question loops, and customer frustration sentiment.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box teal">🗄️</div>
+          <h3>Supabase Postgres Database</h3>
+          <p>Automatically records tickets with complete chat transcripts, session IDs, reasons, and resolution states in Supabase Postgres.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box purple">📢</div>
+          <h3>Instant Discord Alerts</h3>
+          <p>Pushes rich Discord embeds directly into your team's support channel with the last 5 transcript turns and escalation reason.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box indigo">🛡️</div>
+          <h3>Support Admin Dashboard</h3>
+          <p>Password-gated web dashboard at <code>/admin.html</code> to search, inspect complete conversation transcripts, and resolve tickets.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box teal">📦</div>
+          <h3>Zero-Build Drop-In Widget</h3>
+          <p>Self-contained JavaScript widget (<code>widget.js</code>) that injects scoped HTML/CSS, supports mobile fullscreen, and saves session state.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Knowledge Base Accordion Section -->
+  <section id="kb" style="background: #FFFFFF; border-top: 1px solid var(--border);">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Knowledge Base Explorer</span>
+        <h2>12 Pre-Configured Customer FAQs</h2>
+        <p>These FAQs are loaded from <code>/server/kb/faqs.json</code> and injected into Gemini's context. Click "Ask Helix" on any card to test it.</p>
+      </div>
+
+      <div class="faq-accordion-grid" id="faqGridContainer">
+        <!-- Injected via JavaScript from faqs.json -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Embed Script Section -->
+  <section id="embed">
+    <div class="section-inner">
+      <div class="embed-section">
+        <h2>Drop-in Website Integration</h2>
+        <p>Copy and paste this snippet right before the closing <code>&lt;/body&gt;</code> tag on any website:</p>
+        
+        <div class="code-box">
+          <button class="btn-copy" onclick="copySnippet()">Copy Snippet</button>
+          <pre id="embedCodeSnippet">&lt;!-- Helix Support Widget --&gt;
+&lt;script 
+  src="http://localhost:3000/widget.js" 
+  data-company="Helix Support" 
+  data-endpoint="http://localhost:3000/api/chat"&gt;
+&lt;/script&gt;</pre>
+        </div>
+
+        <p style="font-size: 13px; color: #9CA3AF;">
+          ✨ When deployed to Render.com or your production server, simply replace <code>http://localhost:3000</code> with your production URL.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Plans Section -->
+  <section id="pricing">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-tag">Simple & Transparent</span>
+        <h2>100% Free Tier Supported</h2>
+        <p>Helix Support is architected to run completely within the generous free tiers of modern cloud platforms.</p>
+      </div>
+
+      <div class="pricing-grid">
+        
+        <div class="pricing-card featured">
+          <div class="pricing-badge">Recommended</div>
+          <div class="pricing-tier">Self-Hosted Community</div>
+          <div class="pricing-price">$0 <span>/ forever</span></div>
+          <div class="pricing-desc">Deploy your own instance using free-tier services.</div>
+          
+          <ul class="pricing-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Google Gemini 1.5 Flash API (Free)</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Supabase 500MB Postgres (Free)</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Unlimited Discord Webhook Alerts</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Embeddable Chat Widget (widget.js)</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Password-Gated Admin Portal</li>
+          </ul>
+
+          <a href="/admin.html" class="btn btn-primary">Launch Admin Portal</a>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-tier">Managed Cloud</div>
+          <div class="pricing-price">$29 <span>/ month</span></div>
+          <div class="pricing-desc">For teams wanting automated hosting & analytics.</div>
+          
+          <ul class="pricing-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Everything in Self-Hosted</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Custom Domain & SSL</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Advanced Sentiment Analytics</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> 99.9% Uptime SLA</li>
+          </ul>
+
+          <button class="btn btn-outline" onclick="openWidgetChat()">Contact Sales via Chat</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div class="nav-logo" style="width: 28px; height: 28px; font-size: 14px;">H</div>
+        <strong style="color: #111827;">Helix Support System</strong>
+      </div>
+      <div>
+        Running on Node.js • Gemini 1.5 Flash • Supabase • Discord
+      </div>
+      <div>
+        <a href="/admin.html" style="color: var(--primary); text-decoration: none; font-weight: 600;">Admin Dashboard</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- EMBED THE CHAT WIDGET -->
+  <script 
+    src="/widget.js" 
+    data-company="Helix Support" 
+    data-endpoint="/api/chat">
+  </script>
+
+  <script>
+    // Load FAQs into the FAQ Explorer grid
+    const sampleFaqs = [
+      {
+        "question": "What are your business hours?",
+        "answer": "We're available Monday to Saturday, 9 AM to 8 PM. Messages sent outside these hours will be answered as soon as we're back online."
+      },
+      {
+        "question": "How much does your product/service cost?",
+        "answer": "Our pricing starts at [PRICE] and varies based on your needs. Check our Pricing page for full details, or tell me what you're looking for and I can point you to the right plan."
+      },
+      {
+        "question": "What is your return or refund policy?",
+        "answer": "We offer returns within 14 days of purchase for unused items in original packaging. Refunds are processed within 5-7 business days once the return is received."
+      },
+      {
+        "question": "How long does shipping take?",
+        "answer": "Standard shipping takes 3-5 business days within the country. Express shipping (1-2 days) is available at checkout for an extra fee."
+      },
+      {
+        "question": "How do I create an account?",
+        "answer": "Click 'Sign Up' at the top right of our website, enter your email and a password, and verify your email through the link we send you."
+      },
+      {
+        "question": "I forgot my password. How do I reset it?",
+        "answer": "Go to the login page and click 'Forgot Password.' Enter your registered email and we'll send you a reset link within a few minutes."
+      },
+      {
+        "question": "How can I contact your support team directly?",
+        "answer": "You're already chatting with our support assistant! For anything I can't resolve, I'll create a ticket and our team will follow up by email."
+      },
+      {
+        "question": "Do you ship internationally?",
+        "answer": "Yes, we ship to most countries. International shipping times and fees vary by destination and are calculated at checkout."
+      },
+      {
+        "question": "What payment methods do you accept?",
+        "answer": "We accept all major credit/debit cards, PayPal, and [any local payment methods relevant to your market]."
+      },
+      {
+        "question": "I'm getting an error message when I try to check out. What should I do?",
+        "answer": "Try clearing your browser cache and using a different browser or device first. If the error persists, let me know the exact error message and I'll create a ticket for our technical team."
+      },
+      {
+        "question": "Can I change or cancel my order after placing it?",
+        "answer": "Orders can be changed or cancelled within 1 hour of placing them. After that, please reach out and I'll check if it's still possible to modify."
+      },
+      {
+        "question": "Do you offer a free trial?",
+        "answer": "Yes, we offer a 7-day free trial with full access to all features, no credit card required to start."
+      }
+    ];
+
+    function renderFaqs() {
+      const container = document.getElementById('faqGridContainer');
+      container.innerHTML = sampleFaqs.map((faq, index) => `
+        <div class="faq-item">
+          <div class="faq-item-header">
+            <div class="faq-item-title">${faq.question}</div>
+            <button class="btn-ask-faq" onclick="simulateQuestion('${faq.question.replace(/'/g, "\\'")}')">Ask Helix 💬</button>
+          </div>
+          <div class="faq-item-answer">${faq.answer}</div>
+        </div>
+      `).join('');
+    }
+
+    renderFaqs();
+
+    function openWidgetChat() {
+      if (window.Helix) {
+        window.Helix.open();
+      }
+    }
+
+    function simulateQuestion(text) {
+      if (window.Helix) {
+        window.Helix.open();
+        window.Helix.sendMessage(text);
+      }
+    }
+
+    function simulateRepetition() {
+      if (window.Helix) {
+        window.Helix.open();
+        window.Helix.sendMessage('Where is my tracking number?');
+        setTimeout(() => {
+          window.Helix.sendMessage('Where is my tracking number?');
+        }, 1600);
+      }
+    }
+
+    function resetChat() {
+      if (window.Helix) {
+        window.Helix.clearHistory();
+        window.Helix.open();
+      }
+    }
+
+    function copySnippet() {
+      const code = document.getElementById('embedCodeSnippet').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        alert('Snippet copied to clipboard!');
+      });
+    }
+  </script>
+</body>
+</html>

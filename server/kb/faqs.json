@@ -1,0 +1,50 @@
+[
+  {
+    "question": "What are your business hours?",
+    "answer": "We're available Monday to Saturday, 9 AM to 8 PM. Messages sent outside these hours will be answered as soon as we're back online."
+  },
+  {
+    "question": "How much does your product/service cost?",
+    "answer": "Our pricing starts at [PRICE] and varies based on your needs. Check our Pricing page for full details, or tell me what you're looking for and I can point you to the right plan."
+  },
+  {
+    "question": "What is your return or refund policy?",
+    "answer": "We offer returns within 14 days of purchase for unused items in original packaging. Refunds are processed within 5-7 business days once the return is received."
+  },
+  {
+    "question": "How long does shipping take?",
+    "answer": "Standard shipping takes 3-5 business days within the country. Express shipping (1-2 days) is available at checkout for an extra fee."
+  },
+  {
+    "question": "How do I create an account?",
+    "answer": "Click 'Sign Up' at the top right of our website, enter your email and a password, and verify your email through the link we send you."
+  },
+  {
+    "question": "I forgot my password. How do I reset it?",
+    "answer": "Go to the login page and click 'Forgot Password.' Enter your registered email and we'll send you a reset link within a few minutes."
+  },
+  {
+    "question": "How can I contact your support team directly?",
+    "answer": "You're already chatting with our support assistant! For anything I can't resolve, I'll create a ticket and our team will follow up by email."
+  },
+  {
+    "question": "Do you ship internationally?",
+    "answer": "Yes, we ship to most countries. International shipping times and fees vary by destination and are calculated at checkout."
+  },
+  {
+    "question": "What payment methods do you accept?",
+    "answer": "We accept all major credit/debit cards, PayPal, and [any local payment methods relevant to your market]."
+  },
+  {
+    "question": "I'm getting an error message when I try to check out. What should I do?",
+    "answer": "Try clearing your browser cache and using a different browser or device first. If the error persists, let me know the exact error message and I'll create a ticket for our technical team."
+  },
+  {
+    "question": "Can I change or cancel my order after placing it?",
+    "answer": "Orders can be changed or cancelled within 1 hour of placing them. After that, please reach out and I'll check if it's still possible to modify."
+  },
+  {
+    "question": "Do you offer a free trial?",
+    "answer": "Yes, we offer a 7-day free trial with full access to all features, no credit card required to start."
+  }
+]
